@@ -38,4 +38,7 @@ module JakeWendt::TestWithVerbosity
 
 end	#	JakeWendt::TestWithVerbosity
 ActiveSupport::TestCase.send(:include, JakeWendt::TestWithVerbosity)
-__END__
+
+Rails.backtrace_cleaner.add_silencer {|line|
+  line =~ /test_with_verbosity/
+} if defined? Rails 
