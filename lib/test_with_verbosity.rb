@@ -17,7 +17,7 @@ module JakeWendt::TestWithVerbosity
 		#	activesupport-4.1.4/lib/active_support/testing/declarative.rb 
 		def test(name, &block)
 			#test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
-			test_name = "test_#{name.gsub(/\W+/,'_')}".to_sym					#	NEED THIS
+			test_name = "test_#{name.gsub(/\W/,'_')}".to_sym					#	NEED THIS
 			defined = instance_method(test_name) rescue false
 			raise "#{test_name} is already defined in #{self}" if defined
 			if block_given?
@@ -38,9 +38,15 @@ module JakeWendt::TestWithVerbosity
 			end
 		end
 
+
+#	rails used \s+ and converted groups of whitespace to a single underscore
+#	I then used \W+ and converted groups of non-word chars to a single underscore
+
+#	NOW I use \W and converted non-word chars to a underscores (no more groups)
+
 		def test_with_verbosity(name,&block)
 			test_without_verbosity(name,&block)
-			test_name = "test_#{name.gsub(/\W+/,'_')}".to_sym
+			test_name = "test_#{name.gsub(/\W/,'_')}".to_sym
 			define_method("_#{test_name}_with_verbosity") do
 				print "\n#{self.class.name.gsub(/Test$/,'').titleize} #{name}: "
 				send("_#{test_name}_without_verbosity")
