@@ -17,7 +17,7 @@ module JakeWendt::TestWithVerbosity
 		def test_with_verbosity(name,&block)
 			test_without_verbosity(name,&block)
 
-			test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
+			test_name = "test_#{name.gsub(/\W+/,'_')}".to_sym
 			define_method("_#{test_name}_with_verbosity") do
 				print "\n#{self.class.name.gsub(/Test$/,'').titleize} #{name}: "
 				send("_#{test_name}_without_verbosity")
