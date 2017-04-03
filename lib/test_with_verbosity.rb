@@ -152,6 +152,9 @@ module JakeWendt::TestWithVerbosity
 end	#	JakeWendt::TestWithVerbosity
 ActiveSupport::TestCase.send(:include, JakeWendt::TestWithVerbosity)
 
-Rails.backtrace_cleaner.add_silencer {|line|
-  line =~ /test_with_verbosity/
-} if defined? Rails 
+#	20170403 - Don't do this?
+#		Rather than silencing this method, hides the source erroring line?
+#		And still prints the line from this gem?????
+#Rails.backtrace_cleaner.add_silencer {|line|
+#  line =~ /test_with_verbosity/
+#} if defined? Rails 
