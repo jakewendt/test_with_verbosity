@@ -39,6 +39,18 @@ module JakeWendt::TestWithVerbosity
 					#	yield	#	FAIL
 					instance_exec(&block)		#	SUCCESS!
 				end
+
+
+#	This works too, but still get additional line like
+#	bin/rails test /Users/jakewendt/.gem/ruby/2.3/gems/jakewendt-test_with_verbosity-0.0.4/lib/test_with_verbosity.rb:28
+#	on errors.
+#				define_method("__#{test_name}", &block)
+#				define_method(test_name) do
+#					print "\n#{self.class.name.gsub(/Test$/,'').titleize} #{test_name}: "
+#					send("__#{test_name}_without_verbosity")
+#				end
+
+
 			else
 				define_method(test_name) do
 					flunk "No implementation provided for #{name}"
