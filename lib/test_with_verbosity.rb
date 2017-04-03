@@ -19,7 +19,8 @@ module JakeWendt::TestWithVerbosity
 		def test(name, &block)
 			#test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
 			test_name = "test_#{name.gsub(/\W/,'_')}".to_sym					#	NEED THIS
-			defined = instance_method(test_name) rescue false
+			#defined = instance_method(test_name) rescue false
+			defined = method_defined? test_name
 			raise "#{test_name} is already defined in #{self}" if defined
 			if block_given?
 #				define_method(test_name, &block)
